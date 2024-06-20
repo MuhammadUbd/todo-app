@@ -1,0 +1,150 @@
+* {
+    background-color: lightblue;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.inp {
+    width: 190px;
+    height: 35px;
+    border-radius: 5px;
+    outline: none;
+    border: black 1px solid;
+    background-color: aliceblue;
+}
+
+.btun {
+    /* background-color: rgb(195, 251, 251); */
+    background-color: plum;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.h1 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.liElem {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    gap: 10px;
+    list-style-type: none;
+}
+
+.liElem:hover {
+    transition: 0.3s;
+    opacity: 90%;
+    /* background-color: aquamarine; */
+}
+
+.ul {
+    margin: 0px auto;
+    width: 380px;
+    margin-bottom: 15px;
+}
+
+.delElem {
+    float: right;
+    cursor: pointer;
+    text-align: right;
+    /* text-decoration: underline; */
+    border: none;
+    background-color: aquamarine;
+}
+
+.editElem {
+    float: right;
+    text-align: right;
+    margin-left: 5px;
+    cursor: pointer;
+    /* text-decoration: underline; */
+    border: none;
+}
+
+.inner-elem,
+.editElem,
+.delElem,
+.liElem,
+.checkMark {
+    background-color: aliceblue;
+}
+
+.para {
+    color: red;
+}
+
+.warning-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.saveBtn {
+    float: right;
+    cursor: pointer;
+    border: none;
+    width: 50px;
+    height: 22px;
+    /* background-color: beige; */
+    background-color: rgb(183, 72, 72);
+    visibility: hidden;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.saveBtnShow {
+    visibility: visible;
+}
+
+.bi-pencil-square,
+.bi-trash,
+.bi-x-lg {
+    background-color: aliceblue;
+}
+.cancel {
+    float: right;
+    background-color: aliceblue;
+    border: none;
+    visibility: hidden;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.cancelBtnShow {
+    visibility: visible;
+}
+
+.clearText {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.clearAll {
+    /* width: 380px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.clearbtn {
+    float: right;
+    border-radius: 10px;
+    border: none;
+    background-color: plum;
+    width: 70px;
+    height: 30px;
+    cursor: pointer;
+}
