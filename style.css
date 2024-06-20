@@ -148,3 +148,27 @@
     height: 30px;
     cursor: pointer;
 }
+
+.checkmark {
+    background-color: rgb(220, 220, 220);
+    border-radius: 50%;
+    border: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    /* display: inline-flex; */
+}
+
+.checked {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.cleared {
+    background-color: brown;
+    background-color: lightskyblue;
+}
+
+.inner-elem {
+    margin-left: 22px;
+}
