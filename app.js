@@ -3,9 +3,13 @@ const btn = document.getElementById("btn")
 const parentList = document.getElementById("list")
 const warningMessage = document.getElementById("para")
 
+const arr = localStorage.getItem("todos")
+const parse = JSON.parse(arr)
+// let checkMark;
 
 function addItem() {
     if (inp.value !== "") {
+        // inp.value.trim()
         parentList.innerHTML = ""
         warningMessage.innerText = ""
         let todoArr = []
@@ -16,13 +20,15 @@ function addItem() {
         };
         const obj = {
             todos: inp.value,
-            id: new Date().getTime()
+            id: new Date().getTime(),
+            checkMark: false
         }
         todoArr.push(obj)
         localStorage.setItem("todos", JSON.stringify(todoArr))
         inp.value = ""
         renderTodo(todoArr)
         clearAll(todoArr)
+        clearChecks(todoArr)
     } else {
         warningMessage.innerText = "Fill the form!"
     }
@@ -33,7 +39,15 @@ function renderTodo(array) {
     for (let i = 0; i < array.length; i++) {
         const item = array[i].todos
         parentList.innerHTML += `<li class="liElem">
-        <button class="checkmark" onclick="checkmark(${i})"><span class="inner-elem">${item}</span></button>
+            <div class="all-handler">
+            <button class="checkmark" id="check" onclick="checkmark(${i})">
+            <div class="adjustment"><span class="inner-elem ${array[i].checkMark ? 'checked' : ''}">${item}</span></div>
+            </button>
+            <div class="real-one" onclick="checkmark(${i})"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle ${array[i].checkMark ? 'standard' : ''}" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+            </svg></div>
+            </div>
             <button class="editElem" id="editBtn" onclick="editElem(${i})"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
@@ -48,12 +62,11 @@ function renderTodo(array) {
             </svg></button>
             </li>`
     }
+    // clearChecks(array)
     footer()
 }
 
 function getItem() {
-    const getAllTodos = localStorage.getItem("todos")
-    const parse = JSON.parse(getAllTodos)
     renderTodo(parse)
 }
 
@@ -63,11 +76,13 @@ function footer() {
     if (parse.length < 1 || parse.length === 1) {
         parentList.innerHTML += `<div class="clearAll">
             <p class="clearText">You have ${parse.length} item left:</p>
+            <button class="clearcheck">Clear-Checks</button>
             <button class="clearbtn">ClearAll</button>
         </div>`
     } else {
         parentList.innerHTML += `<div class="clearAll">
             <p class="clearText">You have ${parse.length} items left:</p>
+            <button class="clearcheck">Clear-Checks</button>
             <button class="clearbtn">ClearAll</button>
         </div>`
     }
@@ -97,8 +112,6 @@ function cancelButton(index) {
 function editEvent() {
     inp.focus()
     const saveBtn = document.querySelectorAll(".saveBtn")
-    const todoId = localStorage.getItem("todos")
-    const parse = JSON.parse(todoId)
     saveBtn.forEach((sb, i) => {
         sb.addEventListener("click", () => {
             if (inp.value !== "") {
@@ -115,28 +128,16 @@ function editEvent() {
 }
 
 function editElem(index) {
-    const editBtn = document.querySelectorAll("#editBtn")
-    const liElems = document.querySelectorAll(".liElem")
-    // console.log(liElems[index].value)
-    editBtn.forEach((eb, index) => {
-        eb.addEventListener("click", () => {
-            const arr = localStorage.getItem("todos")
-            const parse = JSON.parse(arr)
-            showSaveButton(index)
-            showCancelButton(index)
-            cancelButton(index)
-            editEvent()
-            console.log(liElems[index].value)
-            if (liElems[index].classList.contains("saveBtnShow") && liElems[index].classList.contains("cancelBtnShow")) {
-                console.log("hello")
-                liElems[parse.length - liElems[index].value].classList.remove("cancelBtnShow")
-            }
-        })
-    })
+    const show = document.querySelectorAll(".saveBtnShow");
+    if (show.length === 0) {
+        showSaveButton(index)
+        showCancelButton(index)
+        cancelButton(index)
+        editEvent()
+    }
 }
+
 function delItem(index) {
-    const todoId = localStorage.getItem("todos")
-    const parse = JSON.parse(todoId)
     parse.splice(index, 1)
     localStorage.setItem("todos", JSON.stringify(parse))
     renderTodo(parse)
@@ -151,18 +152,38 @@ function clearAll(array) {
     })
 }
 
+// debugger
+function clearChecks(array) {
+    const clearCheckBtn = document.querySelector(".clearcheck")
+    clearCheckBtn.addEventListener("click", () => {
+        parse.forEach((elem, i) => {
+            if (parse[i].checkMark === true) {
+                array = parse.filter(todo => !todo.checkMark)
+            }
+        })
+        localStorage.setItem("todos", JSON.stringify(array))
+        renderTodo(array)
+    })
+}
+
 function checkmark(index) {
-    const checkBtn = document.querySelectorAll(".checkmark")
     const text = document.querySelectorAll(".inner-elem")
-    if (text[index].classList.contains("checked") && checkBtn[index].classList.contains("cleared")) {
+    const checkMark = document.querySelectorAll(".real-one")
+    if (parse[index].checkMark === true) {
         text[index].classList.remove("checked")
-        checkBtn[index].classList.remove("cleared")
+        checkMark[index].classList.remove("standard")
+        parse[index].checkMark = false
     } else {
         text[index].classList.add("checked")
-        checkBtn[index].classList.add("cleared")
+        checkMark[index].classList.add("standard")
+        parse[index].checkMark = true
     }
+    // console.log(parse)
+    localStorage.setItem("todos", JSON.stringify(parse))
 }
 
 btn.addEventListener("click", addItem)
 getItem()
 clearAll()
+clearChecks()
+// checkmark()

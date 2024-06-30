@@ -40,6 +40,8 @@
     border-radius: 5px;
     gap: 10px;
     list-style-type: none;
+    /* display: flex; */
+    /* justify-content: space-evenly; */
 }
 
 .liElem:hover {
@@ -97,7 +99,7 @@
     width: 50px;
     height: 22px;
     /* background-color: beige; */
-    background-color: rgb(183, 72, 72);
+    background-color: plum;
     visibility: hidden;
     margin-right: 10px;
     border-radius: 10px;
@@ -112,6 +114,7 @@
 .bi-x-lg {
     background-color: aliceblue;
 }
+
 .cancel {
     float: right;
     background-color: aliceblue;
@@ -150,12 +153,15 @@
 }
 
 .checkmark {
-    background-color: rgb(220, 220, 220);
+    /* background-color: rgb(220, 220, 220); */
+    background-color: lightskyblue;
     border-radius: 50%;
     border: none;
     width: 20px;
     height: 20px;
     cursor: pointer;
+    text-decoration: line-through;
+    /* display: flex; */
     /* display: inline-flex; */
 }
 
@@ -164,11 +170,54 @@
     color: gray;
 }
 
-.cleared {
-    background-color: brown;
-    background-color: lightskyblue;
+/* .inner-elem {
+    text-decoration: line-through;
+} */
+.adjustment {
+    display: inline-block;
+    margin-left: 22px;
+    background-color: aliceblue;
+    text-align: left;
+    width: 150px;
 }
 
-.inner-elem {
-    margin-left: 22px;
+.clearcheck {
+    float: right;
+    border-radius: 10px;
+    border: none;
+    background-color: plum;
+    /* width: 100px; */
+    height: 30px;
+    cursor: pointer;
+}
+
+.real-one {
+    display: inline-block;
+    background: none;
+    position: relative;
+    right: 22.5px;
+    bottom: -3px;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.another-one {
+    visibility: visible;
+}
+
+.parent-btn {
+    display: inline-block;
+    background-color: aliceblue;
+}
+
+.all-handler {
+    display: inline;
+    background-color: aliceblue;
+}
+
+.standard {
+    background: none;
+    cursor: pointer;
+    visibility: visible;
 }
