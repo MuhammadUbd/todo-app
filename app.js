@@ -148,7 +148,7 @@ function clearAll(array) {
     clearBtn.addEventListener("click", () => {
         array = []
         localStorage.setItem("todos", JSON.stringify(array))
-        renderTodo(array);
+        renderTodo(array)   
     })
 }
 
